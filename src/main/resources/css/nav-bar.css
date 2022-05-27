@@ -1,0 +1,13 @@
+.jfx-button {
+    /*-fx-text-fill: rgba(41,87,116, 59);*/
+    -fx-text-fill: #3c72bf;
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 16;
+    -fx-alignment: center-left;
+}
+
+.jfx-button:hover {
+    /*-fx-background-color: rgb(202,223,197);*/
+    -fx-background-color: derive(#3c72bf, 95%);
+}

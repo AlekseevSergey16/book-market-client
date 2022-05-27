@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+}
+
+group 'com.salekseev'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.7.1'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainModule = 'com.salekseev.booksmarketclient'
+    mainClass = 'com.salekseev.booksmarketclient.HelloApplication'
+}
+
+javafx {
+    version = '11.0.2'
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.graphics']
+}
+
+dependencies {
+    implementation 'com.jfoenix:jfoenix:9.0.8'
+    implementation 'io.github.palexdev:materialfx:11.13.5'
+    implementation 'org.controlsfx:controlsfx:11.1.1'
+
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.12.10'
+
+
+
+//    // https://mvnrepository.com/artifact/de.jensd/fontawesomefx
+//    implementation 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    jvmArgs = [
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control=com.jfoenix",
+            "--add-exports=javafx.base/com.sun.javafx.binding=com.jfoenix",
+            "--add-exports=javafx.graphics/com.sun.javafx.stage=com.jfoenix",
+            "--add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix",
+            "--add-opens java.base/java.lang.invoke=retrofit2"
+    ]
+}

@@ -1,0 +1,48 @@
+.jfx-text-field {
+    -jfx-focus-color: #3c72bf;
+    -jfx-label-float: true;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+}
+
+.jfx-text-area {
+    -jfx-focus-color: #3c72bf;
+    -jfx-label-float: true;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+}
+
+VBox {
+    -fx-background-color: #fafafa;
+}
+
+.jfx-button {
+    -fx-text-fill: white;
+    -fx-background-color: #3c72bf;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -jfx-button-type: FLAT;
+}
+
+.jfx-combo-box {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+}
+
+.label {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+}
+
+.mfx-list-view .virtual-flow .mfx-list-cell:selected {
+    /*-fx-background-color: rgb(224,236,219);*/
+    -fx-background-color: derive(#3c72bf, 95%);
+}
+
+.mfx-list-view .mfx-ripple-generator {
+    /*-mfx-ripple-radius: 0;*/
+    /*-mfx-ripple-color: rgb(224,236,219);*/
+    -mfx-ripple-color: #a3badd;
+}
+
+/*#c5e1a5 */
