@@ -11,6 +11,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.io.IOException;
 import java.util.List;
@@ -89,6 +90,12 @@ public class BookMarketService {
     public CompletableFuture<List<Book>> getAllBooks() {
         var result = new CompletableFuture<List<Book>>();
         api.getAllBooks().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<List<Book>> getBooksByAuthor(long authorId) {
+        var result = new CompletableFuture<List<Book>>();
+        api.getBooksByAuthor(authorId).enqueue(new ServiceCallback<>(result));
         return result;
     }
 

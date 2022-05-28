@@ -2,6 +2,7 @@ package com.salekseev.booksmarketclient.view.author.main;
 
 import com.salekseev.booksmarketclient.model.Author;
 import com.salekseev.booksmarketclient.util.FxUtil;
+import com.salekseev.booksmarketclient.view.author.bookInfo.BooksOfAuthorView;
 import com.salekseev.booksmarketclient.view.author.info.AuthorInfoView;
 import com.salekseev.booksmarketclient.view.book.main.BookView;
 import javafx.collections.MapChangeListener;
@@ -50,7 +51,9 @@ public class AuthorView extends AuthorViewDesigner {
 
     @Override
     protected void showBooksButtonOnAction(ActionEvent event) {
-        FxUtil.showView("Книги", new BookView(), this.getScene().getWindow());
+        Author author = (Author) state.getAuthorMap().values().toArray()[0];
+        String title = String.format("Книги (%s %s)", author.getFirstName(), author.getLastName());
+        FxUtil.showView(title, new BooksOfAuthorView(author), this.getScene().getWindow());
     }
 
     private void bindFields(State state) {
@@ -62,12 +65,15 @@ public class AuthorView extends AuthorViewDesigner {
             if (change.getMap().size() == 1) {
                 editAuthorButton.setDisable(false);
                 deleteAuthorButton.setDisable(false);
+                detailButton.setDisable(false);
             } else if (change.getMap().size() > 1) {
                 editAuthorButton.setDisable(true);
                 deleteAuthorButton.setDisable(false);
+                detailButton.setDisable(true);
             } else if (change.getMap().isEmpty()) {
                 editAuthorButton.setDisable(true);
                 deleteAuthorButton.setDisable(true);
+                detailButton.setDisable(true);
             }
         });
     }

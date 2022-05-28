@@ -1,47 +1,28 @@
-package com.salekseev.booksmarketclient.view.book.main;
+package com.salekseev.booksmarketclient.view.author.bookInfo;
 
-import com.jfoenix.controls.JFXButton;
 import com.salekseev.booksmarketclient.model.Author;
 import com.salekseev.booksmarketclient.model.Book;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 
-public abstract class BookViewDesigner extends StackPane {
+abstract class BooksOfAuthorViewDesigner extends StackPane {
 
-    JFXButton addBookButton;
-    JFXButton editBookButton;
-    JFXButton deleteBookButton;
     MFXTableView<Book> tableView;
 
-    public BookViewDesigner() {
+    public BooksOfAuthorViewDesigner() {
         this.createView();
         this.getStylesheets().add(getClass().getResource("/css/center-view.css").toExternalForm());
     }
 
     private void createView() {
         GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
-
-        addBookButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.PLUS).color(Color.valueOf("#3c72bf")).size(18));
-        addBookButton.setOnAction(this::addBookButtonOnAction);
-
-        editBookButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.PENCIL).color(Color.valueOf("#3c72bf")).size(18)); //"\uf044"
-        editBookButton.setOnAction(this::editBookButtonOnAction);
-        editBookButton.setDisable(true);
-
-        deleteBookButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.TRASH).color(Color.valueOf("#3c72bf")).size(18));
-        deleteBookButton.setOnAction(this::deleteBookButtonOnAction);
-        deleteBookButton.setDisable(true);
-
         tableView = new MFXTableView<>();
         tableView.setPrefSize(1024.0, 768.0);
         tableView.setFooterVisible(false);
@@ -97,16 +78,12 @@ public abstract class BookViewDesigner extends StackPane {
 
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(0, 5, 0, 5));
-        hBox.getChildren().addAll(addBookButton, editBookButton, deleteBookButton);
+        hBox.getChildren().addAll();
 
         VBox vBox = new VBox(5,  hBox, tableView);
         vBox.setPadding(new Insets(5, 5, 5, 5));
 
         getChildren().add(vBox);
     }
-
-    protected abstract void addBookButtonOnAction(ActionEvent event);
-    protected abstract void editBookButtonOnAction(ActionEvent event);
-    protected abstract void deleteBookButtonOnAction(ActionEvent event);
 
 }

@@ -10,7 +10,9 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.controlsfx.control.PopOver;
@@ -49,15 +51,14 @@ public abstract class AuthorViewDesigner extends StackPane {
         showBooksButton = new JFXButton("Показать книги автора");
         showBooksButton.setOnAction(this::showBooksButtonOnAction);
 
-        PopOver popOver = new PopOver();
-        popOver.setAnimated(false);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.setContentNode(new VBox(showBooksButton));
-        popOver.setCornerRadius(1);
-        popOver.setArrowSize(1);
+        MenuItem showBooksItem = new MenuItem("Показать книги автора");
+        showBooksItem.setOnAction(this::showBooksButtonOnAction);
+        ContextMenu contextMenu = new ContextMenu(showBooksItem);
 
         detailButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.ELLIPSIS_H).color(Color.valueOf("#3c72bf")).size(18));
-        detailButton.setOnAction(event -> popOver.show(detailButton));
+        detailButton.setOnMouseClicked(event -> contextMenu.show(detailButton, event.getScreenX() - 150, event.getScreenY()));
+        detailButton.setDisable(true);
+
         Pane hiddenPane = new Pane();
         HBox.setHgrow(hiddenPane, Priority.ALWAYS);
 
@@ -82,8 +83,6 @@ public abstract class AuthorViewDesigner extends StackPane {
         informationColumn.setMinWidth(400);
 
         tableView.getTableColumns().addAll(lastNameColumn, firstNameColumn, middleNameColumn, informationColumn);
-        tableView.scrollToFirst();
-        tableView.scrollToLast();
 
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(0, 5, 0, 5));

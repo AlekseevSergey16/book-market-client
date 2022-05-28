@@ -42,6 +42,9 @@ public interface BookMarketApi {
     @GET("/book-market/api/books")
     Call<List<Book>> getAllBooks();
 
+    @GET("/book-market/api/books/search")
+    Call<List<Book>> getBooksByAuthor(@Query("authorId") long authorId);
+
     @PUT("/book-market/api/books")
     Call<Void> updateBook(@Body Book book);
 
