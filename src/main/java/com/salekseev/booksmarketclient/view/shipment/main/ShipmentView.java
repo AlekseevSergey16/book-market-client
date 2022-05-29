@@ -6,6 +6,7 @@ import com.salekseev.booksmarketclient.view.shipment.shipmentInfo.ShipmentInfoVi
 import com.salekseev.booksmarketclient.view.shipment.supplierAdd.SupplierAddView;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.function.Consumer;
@@ -25,12 +26,17 @@ public class ShipmentView extends ShipmentViewDesigner {
     @Override
     protected void addShipmentButtonOnAction(ActionEvent event) {
         FxUtil.showView("Добавление Поставки", new ShipmentInfoView(addShipmentConsumer), this.getScene().getWindow());
-        ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
     }
 
     @Override
     protected void showSupplierItemOnAction(ActionEvent event) {
         FxUtil.showView("Добавление Поставщика", new SupplierAddView(), this.getScene().getWindow());
+    }
+
+    @Override
+    protected void showDetailedItemOnAction(ActionEvent event) {
+        Shipment shipment = tableView.getSelectionModel().getSelectedValues().get(0);
+        FxUtil.showView("Просмотр Поставки", new ShipmentInfoView(shipment), this.getScene().getWindow());
     }
 
     private void bindFields() {
@@ -40,5 +46,5 @@ public class ShipmentView extends ShipmentViewDesigner {
     private void addShipment(Shipment shipment) {
         viewModel.addShipment(shipment);
     }
-    //todo supplierViewAdd, shipmentViewAdd
+
 }

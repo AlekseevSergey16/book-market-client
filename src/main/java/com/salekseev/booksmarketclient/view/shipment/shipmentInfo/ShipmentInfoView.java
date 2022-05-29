@@ -4,6 +4,7 @@ import com.salekseev.booksmarketclient.model.Shipment;
 import com.salekseev.booksmarketclient.model.ShipmentItem;
 import com.salekseev.booksmarketclient.util.FxUtil;
 import com.salekseev.booksmarketclient.view.shipment.bookSelect.BookSelectView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -11,12 +12,20 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class ShipmentInfoView extends ShipmentInfoViewDesigner {
 
     private final ShipmentInfoVM viewModel;
     private final Consumer<Shipment> shipmentConsumer;
+
+    public ShipmentInfoView(Shipment shipment) {
+        this.viewModel = new ShipmentInfoVM();
+        viewModel.loadSuppliers();
+        bindFields();
+        disableControls();
+        shipmentConsumer = null;
+        fillFields(shipment);
+    }
 
     public ShipmentInfoView(Consumer<Shipment> shipmentConsumer) {
         this.shipmentConsumer = shipmentConsumer;
@@ -28,6 +37,7 @@ public class ShipmentInfoView extends ShipmentInfoViewDesigner {
     @Override
     protected void saveShipmentButtonOnAction(ActionEvent event) {
         shipmentConsumer.accept(buildShipment());
+        ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
     }
 
     @Override
@@ -61,6 +71,19 @@ public class ShipmentInfoView extends ShipmentInfoViewDesigner {
         shipment.setTotalAmount(Integer.parseInt(totalAmountField.getText()));
 
         return shipment;
+    }
+
+    private void fillFields(Shipment shipment) {
+        this.totalAmountField.setText(String.valueOf(shipment.getTotalAmount()));
+        this.supplierComboBox.setItems(FXCollections.observableArrayList(shipment.getSupplier()));
+        this.shipmentItemListView.setItems(FXCollections.observableArrayList(shipment.getItems()));
+        this.supplierComboBox.getSelectionModel().select(shipment.getSupplier());
+    }
+
+    private void disableControls() {
+        this.saveBookButton.setVisible(false);
+        this.cancelBookButton.setVisible(false);
+        this.addShipmentItemButton.setVisible(false);
     }
 
 }

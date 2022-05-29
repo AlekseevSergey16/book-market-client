@@ -1,7 +1,6 @@
 package com.salekseev.booksmarketclient.service.retrofit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.salekseev.booksmarketclient.model.*;
 import okhttp3.OkHttpClient;
@@ -9,12 +8,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
-import java.io.IOException;
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

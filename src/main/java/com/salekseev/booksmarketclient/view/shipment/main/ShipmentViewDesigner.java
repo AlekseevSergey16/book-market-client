@@ -35,7 +35,11 @@ abstract class ShipmentViewDesigner extends StackPane {
 
         MenuItem showSupplierItem = new MenuItem("Добавить Поставщика");
         showSupplierItem.setOnAction(this::showSupplierItemOnAction);
-        ContextMenu contextMenu = new ContextMenu(showSupplierItem);
+
+        MenuItem showDetailedItem = new MenuItem("Подробнее");
+        showDetailedItem.setOnAction(this::showDetailedItemOnAction);
+
+        ContextMenu contextMenu = new ContextMenu(showSupplierItem, showDetailedItem);
 
         detailButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.ELLIPSIS_H).color(Color.valueOf("#3c72bf")).size(18));
         detailButton.setOnMouseClicked(event -> contextMenu.show(detailButton, event.getScreenX() - 150, event.getScreenY()));
@@ -73,5 +77,6 @@ abstract class ShipmentViewDesigner extends StackPane {
 
     protected abstract void addShipmentButtonOnAction(ActionEvent event);
     protected abstract void showSupplierItemOnAction(ActionEvent event);
+    protected abstract void showDetailedItemOnAction(ActionEvent event);
 
 }
