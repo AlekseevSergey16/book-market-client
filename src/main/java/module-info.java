@@ -14,7 +14,7 @@ module com.salekseev.booksmarketclient {
     requires com.fasterxml.jackson.databind;
     requires okhttp3;
     requires java.net.http;
-
+    requires com.fasterxml.jackson.datatype.jsr310;
 //    opens com.salekseev.booksmarketclient to javafx.fxml;
     exports com.salekseev.booksmarketclient;
     exports com.salekseev.booksmarketclient.model;

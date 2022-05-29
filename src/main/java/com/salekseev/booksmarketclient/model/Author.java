@@ -115,6 +115,6 @@ public class Author {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + (middleName != null ? " " + middleName : "");
+        return firstName + " " + lastName;
     }
 }

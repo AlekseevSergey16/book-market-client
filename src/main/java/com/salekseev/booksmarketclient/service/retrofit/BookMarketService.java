@@ -1,10 +1,9 @@
 package com.salekseev.booksmarketclient.service.retrofit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.salekseev.booksmarketclient.model.Author;
-import com.salekseev.booksmarketclient.model.Book;
-import com.salekseev.booksmarketclient.model.Genre;
-import com.salekseev.booksmarketclient.model.Publisher;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.salekseev.booksmarketclient.model.*;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -14,6 +13,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -28,7 +29,12 @@ public class BookMarketService {
 
     private BookMarketService() {
         ObjectMapper objectMapper = new ObjectMapper();
-        OkHttpClient httpClient = new OkHttpClient.Builder().build();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .connectTimeout(Duration.ofSeconds(10000))
+                .readTimeout(Duration.ofSeconds(10000))
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://localhost:8080")
@@ -120,6 +126,30 @@ public class BookMarketService {
     public CompletableFuture<List<Genre>> getAllGenres() {
         var result = new CompletableFuture<List<Genre>>();
         api.getAllGenres().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<List<Supplier>> getAllSuppliers() {
+        var result = new CompletableFuture<List<Supplier>>();
+        api.getAllSuppliers().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<Long> createSupplier(Supplier supplier) {
+        var result = new CompletableFuture<Long>();
+        api.createSupplier(supplier).enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<List<Shipment>> getAllShipments() {
+        var result = new CompletableFuture<List<Shipment>>();
+        api.getAllShipments().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<Long> createShipment(Shipment shipment) {
+        var result = new CompletableFuture<Long>();
+        api.createShipment(shipment).enqueue(new ServiceCallback<>(result));
         return result;
     }
 

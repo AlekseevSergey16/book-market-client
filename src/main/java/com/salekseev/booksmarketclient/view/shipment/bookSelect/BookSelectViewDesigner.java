@@ -1,6 +1,7 @@
-package com.salekseev.booksmarketclient.view.author.bookInfo;
+package com.salekseev.booksmarketclient.view.shipment.bookSelect;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.salekseev.booksmarketclient.model.Author;
 import com.salekseev.booksmarketclient.model.Book;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -12,22 +13,23 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.glyphfont.GlyphFont;
-import org.controlsfx.glyphfont.GlyphFontRegistry;
 
-public abstract class BooksOfAuthorViewDesigner extends StackPane {
+abstract class BookSelectViewDesigner extends StackPane {
 
     protected MFXTableView<Book> tableView;
+    protected JFXTextField amountField;
     protected JFXButton okButton;
 
-    public BooksOfAuthorViewDesigner() {
+    public BookSelectViewDesigner() {
         this.createView();
         this.getStylesheets().add(getClass().getResource("/css/center-view.css").toExternalForm());
         this.getStylesheets().add(getClass().getResource("/css/add-author-view.css").toExternalForm());
     }
 
     private void createView() {
-        GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
+        amountField = new JFXTextField();
+        amountField.setPromptText("Количество экземпляров");
+
         okButton = new JFXButton("OK");
         okButton.setOnAction(this::okButtonOnAction);
 
@@ -91,7 +93,7 @@ public abstract class BooksOfAuthorViewDesigner extends StackPane {
         HBox buttonsHBox = new HBox(5, okButton);
         buttonsHBox.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox vBox = new VBox(5,  hBox, tableView, buttonsHBox);
+        VBox vBox = new VBox(5,  hBox, tableView, amountField, buttonsHBox);
         vBox.setPadding(new Insets(5, 5, 5, 5));
 
         getChildren().add(vBox);

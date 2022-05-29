@@ -59,6 +59,7 @@ public abstract class MainViewDesigner extends BorderPane {
 
         shipmentButton = new JFXButton("Поставки", fontAwesome.create(FontAwesome.Glyph.TRUCK).color(Color.valueOf("#3c72bf")));
         shipmentButton.setPrefSize(258.0, 45.0);
+        shipmentButton.setOnAction(this::shipmentButtonOnAction);
 
         orderButton = new JFXButton("Заказы", fontAwesome.create(FontAwesome.Glyph.LIST_UL).color(Color.valueOf("#3c72bf")));
         orderButton.setPrefSize(258.0, 45.0);
@@ -84,5 +85,6 @@ public abstract class MainViewDesigner extends BorderPane {
     public abstract void bookButtonOnAction(ActionEvent event);
     public abstract void authorButtonOnAction(ActionEvent event);
     public abstract void publisherButtonOnAction(ActionEvent event);
+    public abstract void shipmentButtonOnAction(ActionEvent event);
 
 }

@@ -1,6 +1,9 @@
 package com.salekseev.booksmarketclient.view.author.bookInfo;
 
 import com.salekseev.booksmarketclient.model.Author;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 public class BooksOfAuthorView extends BooksOfAuthorViewDesigner {
 
@@ -17,4 +20,8 @@ public class BooksOfAuthorView extends BooksOfAuthorViewDesigner {
         this.tableView.setItems(viewModel.getBookObservableList());
     }
 
+    @Override
+    protected void okButtonOnAction(ActionEvent event) {
+        ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
+    }
 }

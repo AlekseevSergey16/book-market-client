@@ -29,7 +29,6 @@ public class BookInfoVM {
                 .thenAccept(authors -> {
                     Platform.runLater(() -> {
                         authorObservableList.setAll(authors);
-
                     });
                 });
         service.getAllGenres()

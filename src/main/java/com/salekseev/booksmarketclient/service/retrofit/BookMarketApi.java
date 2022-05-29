@@ -1,9 +1,6 @@
 package com.salekseev.booksmarketclient.service.retrofit;
 
-import com.salekseev.booksmarketclient.model.Author;
-import com.salekseev.booksmarketclient.model.Book;
-import com.salekseev.booksmarketclient.model.Genre;
-import com.salekseev.booksmarketclient.model.Publisher;
+import com.salekseev.booksmarketclient.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -36,6 +33,7 @@ public interface BookMarketApi {
     @DELETE("/book-market/api/publishers/{id}")
     Call<Void> deletePublisher(@Path("id") long id);
 
+
     @POST("/book-market/api/books")
     Call<Long> createBook(@Body Book book);
 
@@ -51,7 +49,22 @@ public interface BookMarketApi {
     @DELETE("/book-market/api/books/{id}")
     Call<Void> deleteBook(@Path("id") long id);
 
+
     @GET("/book-market/api/genres")
     Call<List<Genre>> getAllGenres();
+
+
+    @POST("/book-market/api/suppliers")
+    Call<Long> createSupplier(@Body Supplier supplier);
+
+    @GET("/book-market/api/suppliers")
+    Call<List<Supplier>> getAllSuppliers();
+
+
+    @POST("/book-market/api/shipments")
+    Call<Long> createShipment(@Body Shipment shipment);
+
+    @GET("/book-market/api/shipments")
+    Call<List<Shipment>> getAllShipments();
 
 }
