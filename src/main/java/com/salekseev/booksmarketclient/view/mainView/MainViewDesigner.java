@@ -63,6 +63,7 @@ public abstract class MainViewDesigner extends BorderPane {
 
         orderButton = new JFXButton("Заказы", fontAwesome.create(FontAwesome.Glyph.LIST_UL).color(Color.valueOf("#3c72bf")));
         orderButton.setPrefSize(258.0, 45.0);
+        orderButton.setOnAction(this::orderButtonOnAction);
 
         leftNavBar = new VBox(title, authorButton, publisherButton, bookButton, shipmentButton, orderButton);
         leftNavBar.setPrefSize(260.0, 800.0);
@@ -86,5 +87,6 @@ public abstract class MainViewDesigner extends BorderPane {
     public abstract void authorButtonOnAction(ActionEvent event);
     public abstract void publisherButtonOnAction(ActionEvent event);
     public abstract void shipmentButtonOnAction(ActionEvent event);
+    public abstract void orderButtonOnAction(ActionEvent event);
 
 }

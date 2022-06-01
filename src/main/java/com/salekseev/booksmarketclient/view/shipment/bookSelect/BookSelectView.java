@@ -16,8 +16,8 @@ public class BookSelectView extends BookSelectViewDesigner {
 
     public BookSelectView(Consumer<ShipmentItem> itemConsumer) {
         this.itemConsumer = itemConsumer;
-        viewModel = new BookSelectVM();
-        viewModel.loadBooks();
+        this.viewModel = new BookSelectVM();
+        this.viewModel.loadBooks();
         bindFields();
     }
 

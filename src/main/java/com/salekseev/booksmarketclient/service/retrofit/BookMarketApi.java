@@ -67,4 +67,11 @@ public interface BookMarketApi {
     @GET("/book-market/api/shipments")
     Call<List<Shipment>> getAllShipments();
 
+
+    @POST("/book-market/api/orders")
+    Call<Long> createOrder(@Body Order order);
+
+    @GET("/book-market/api/orders")
+    Call<List<Order>> getAllOrders();
+
 }

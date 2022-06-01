@@ -2,6 +2,7 @@ package com.salekseev.booksmarketclient.view.mainView;
 
 import com.salekseev.booksmarketclient.view.author.main.AuthorView;
 import com.salekseev.booksmarketclient.view.book.main.BookView;
+import com.salekseev.booksmarketclient.view.order.main.OrderView;
 import com.salekseev.booksmarketclient.view.publisher.main.PublisherView;
 import com.salekseev.booksmarketclient.view.shipment.main.ShipmentView;
 import javafx.event.ActionEvent;
@@ -30,6 +31,12 @@ public class MainView extends MainViewDesigner {
     public void shipmentButtonOnAction(ActionEvent event) {
         ShipmentView shipmentView = new ShipmentView();
         setCenter(shipmentView);
+    }
+
+    @Override
+    public void orderButtonOnAction(ActionEvent event) {
+        OrderView orderView = new OrderView();
+        setCenter(orderView);
     }
 
 }

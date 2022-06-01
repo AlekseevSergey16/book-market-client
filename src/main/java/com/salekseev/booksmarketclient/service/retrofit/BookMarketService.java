@@ -148,4 +148,16 @@ public class BookMarketService {
         return result;
     }
 
+    public CompletableFuture<List<Order>> getAllOrders() {
+        var result = new CompletableFuture<List<Order>>();
+        api.getAllOrders().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+    public CompletableFuture<Long> createOrder(Order order) {
+        var result = new CompletableFuture<Long>();
+        api.createOrder(order).enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
 }
