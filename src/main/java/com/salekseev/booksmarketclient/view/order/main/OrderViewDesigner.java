@@ -58,7 +58,7 @@ abstract class OrderViewDesigner extends StackPane {
         MFXTableColumn<Order> column2 = new MFXTableColumn<>("Позиции заказа", false);
         column2.setRowCellFactory(rowCell -> new MFXTableRowCell<>(order -> order.getItems() == null ? "" :
                 order.getItems().stream()
-                        .map(OrderItem::getBook)
+                        .map(OrderItem::toString)
                         .collect(Collectors.toList())));
         column2.setMinWidth(500);
 

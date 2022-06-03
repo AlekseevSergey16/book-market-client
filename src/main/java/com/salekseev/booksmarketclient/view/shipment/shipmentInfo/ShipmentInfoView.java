@@ -4,6 +4,7 @@ import com.salekseev.booksmarketclient.model.Shipment;
 import com.salekseev.booksmarketclient.model.ShipmentItem;
 import com.salekseev.booksmarketclient.util.FxUtil;
 import com.salekseev.booksmarketclient.view.shipment.bookSelect.BookSelectView;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -61,6 +62,10 @@ public class ShipmentInfoView extends ShipmentInfoViewDesigner {
 
     private void bindFields() {
         this.supplierComboBox.setItems(viewModel.getSupplierObservableList());
+
+        saveBookButton.disableProperty()
+                .bind(supplierComboBox.getSelectionModel().selectedItemProperty().isNull()
+                .or(Bindings.isEmpty(shipmentItemListView.getItems())));
     }
 
     private Shipment buildShipment() {

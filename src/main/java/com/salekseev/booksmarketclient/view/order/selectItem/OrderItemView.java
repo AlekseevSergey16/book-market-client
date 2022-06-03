@@ -2,10 +2,14 @@ package com.salekseev.booksmarketclient.view.order.selectItem;
 
 import com.salekseev.booksmarketclient.model.Book;
 import com.salekseev.booksmarketclient.model.OrderItem;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class OrderItemView extends OrderItemViewDesigner {
@@ -27,6 +31,34 @@ public class OrderItemView extends OrderItemViewDesigner {
 
     private void bindFields() {
         this.tableView.setItems(viewModel.getBookObservableList());
+//        this.okButton.disableProperty()
+//                .bind(quantityField.textProperty().isEmpty());
+
+        this.tableView.getSelectionModel().selectionProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) return;
+
+            if (quantityField.getText().isEmpty()) return;
+
+            Book book = (Book) newValue.values().toArray()[0];
+            int amount = Integer.parseInt(quantityField.getText());
+
+            if (amount > book.getAmount()) {
+                this.okButton.setDisable(true);
+            }
+
+        });
+
+        this.quantityField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.equals("")) {
+                this.okButton.setDisable(true);
+                return;
+            }
+
+            int quantity = Integer.parseInt(newValue);
+
+            this.okButton.setDisable(quantity > tableView.getSelectionModel().getSelectedValues().get(0).getAmount());
+
+        });
     }
 
     private OrderItem buildOrderItem() {

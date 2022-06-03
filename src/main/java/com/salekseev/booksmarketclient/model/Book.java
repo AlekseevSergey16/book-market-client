@@ -14,6 +14,7 @@ public class Book {
     private Double cost;
     private Integer pages;
     private Integer weight;
+    private Integer amount;
 
     public Book() {
     }
@@ -108,5 +109,11 @@ public class Book {
         this.weight = weight;
     }
 
+    public Integer getAmount() {
+        return amount;
+    }
 
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 }

@@ -32,6 +32,7 @@ abstract class OrderItemViewDesigner extends StackPane {
 
         okButton = new JFXButton("OK");
         okButton.setOnAction(this::okButtonOnAction);
+        okButton.setDisable(true);
 
         tableView = new MFXTableView<>();
         tableView.setPrefSize(1024.0, 768.0);
@@ -78,13 +79,17 @@ abstract class OrderItemViewDesigner extends StackPane {
         costColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getCost));
         costColumn.setPrefWidth(100);
 
+        MFXTableColumn<Book> amountColumn = new MFXTableColumn<>("На складе", true);
+        amountColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getAmount));
+        amountColumn.setPrefWidth(50);
+
         MFXTableColumn<Book> descriptionColumn = new MFXTableColumn<>("Описание", false);
         descriptionColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getDescription));
         descriptionColumn.setPrefWidth(200);
         descriptionColumn.setMaxWidth(200);
 
         tableView.getTableColumns().addAll(titleColumn, authorsColumn, genreColumn, publisherColumn, pagesColumn,
-                weightColumn, yearColumn, costColumn, descriptionColumn);
+                weightColumn, yearColumn, costColumn, amountColumn, descriptionColumn);
 
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(0, 5, 0, 5));

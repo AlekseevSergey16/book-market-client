@@ -5,6 +5,7 @@ import com.salekseev.booksmarketclient.model.Book;
 import com.salekseev.booksmarketclient.model.Genre;
 import com.salekseev.booksmarketclient.model.Publisher;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.value.ObservableMapValue;
 import javafx.collections.FXCollections;
@@ -65,6 +66,16 @@ public class BookInfoView extends BookInfoViewDesigner {
         authorListView.setItems(viewModel.getAuthorObservableList());
         publisherComboBox.setItems(viewModel.getPublisherObservableList());
         genreComboBox.setItems(viewModel.getGenreObservableList());
+
+        saveBookButton.disableProperty()
+                .bind(authorListView.getSelectionModel().selectionProperty().emptyProperty()
+                        .or(publisherComboBox.getSelectionModel().selectedItemProperty().isNull())
+                        .or(genreComboBox.getSelectionModel().selectedItemProperty().isNull())
+                        .or(titleField.textProperty().isEmpty())
+                        .or(publicationYearField.textProperty().isEmpty())
+                        .or(costField.textProperty().isEmpty())
+                        .or(pagesField.textProperty().isEmpty())
+                        .or(weightField.textProperty().isEmpty()));
     }
 
     private void fillFields() {
@@ -124,6 +135,7 @@ public class BookInfoView extends BookInfoViewDesigner {
         book.setCost(Double.parseDouble(costField.getText()));
         book.setPages(Integer.parseInt(pagesField.getText()));
         book.setWeight(Integer.parseInt(weightField.getText()));
+        book.setAmount(0);
         return book;
     }
 

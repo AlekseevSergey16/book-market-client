@@ -33,8 +33,6 @@ abstract class ShipmentInfoViewDesigner extends StackPane {
     }
 
     private void createView() {
-        GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
-
         VBox vBox = new VBox(30);
         vBox.setPadding(new Insets(40.0, 50.0, 30.0, 50.0));
 
@@ -42,9 +40,8 @@ abstract class ShipmentInfoViewDesigner extends StackPane {
         supplierComboBox.setPromptText("Поставщик");
         supplierComboBox.setPrefWidth(520);
 
-        addShipmentItemButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.PLUS).color(Color.valueOf("#3c72bf")).size(18));
+        addShipmentItemButton = new JFXButton("Добавить");
         addShipmentItemButton.setOnAction(this::addShipmentItemButtonOnAction);
-        addShipmentItemButton.getStylesheets().add(getClass().getResource("/css/button.css").toExternalForm());
 
         shipmentItemListView = new MFXListView<>();
         shipmentItemListView.setPrefSize(520.0, 100.0);

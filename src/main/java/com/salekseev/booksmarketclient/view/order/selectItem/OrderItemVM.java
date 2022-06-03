@@ -17,7 +17,7 @@ public class OrderItemVM {
     private final BookMarketService service = BookMarketService.getInstance();
 
     public void loadBooks() {
-        service.getAllBooks()
+        service.getAvailabilityBooks()
                 .thenAccept(books -> Platform.runLater(() -> bookObservableList.setAll(books)));
     }
 

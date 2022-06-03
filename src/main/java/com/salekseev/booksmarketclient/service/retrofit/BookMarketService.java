@@ -94,6 +94,12 @@ public class BookMarketService {
         return result;
     }
 
+    public CompletableFuture<List<Book>> getAvailabilityBooks() {
+        var result = new CompletableFuture<List<Book>>();
+        api.getAvailabilityBooks(true).enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
     public CompletableFuture<List<Book>> getBooksByAuthor(long authorId) {
         var result = new CompletableFuture<List<Book>>();
         api.getBooksByAuthor(authorId).enqueue(new ServiceCallback<>(result));
