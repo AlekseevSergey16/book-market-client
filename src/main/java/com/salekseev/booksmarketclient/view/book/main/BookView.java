@@ -4,6 +4,7 @@ import com.salekseev.booksmarketclient.model.Book;
 import com.salekseev.booksmarketclient.util.FxUtil;
 import com.salekseev.booksmarketclient.view.book.info.BookInfoView;
 import javafx.collections.MapChangeListener;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 
 import java.util.List;
@@ -38,8 +39,6 @@ public class BookView extends BookViewDesigner {
     }
 
     private void bindFields() {
-        this.tableView.setItems(viewModel.getBookObservableList());
-
         tableView.getSelectionModel().selectionProperty().addListener((MapChangeListener<Integer, Book>) change -> {
             if (change.getMap().size() == 1) {
                 editBookButton.setDisable(false);
@@ -52,6 +51,24 @@ public class BookView extends BookViewDesigner {
                 deleteBookButton.setDisable(true);
             }
         });
+
+        FilteredList<Book> bookFilteredList = new FilteredList<>(viewModel.getBookObservableList());
+
+        filterBookField.textProperty().addListener((observable, oldValue, newValue) -> {
+            bookFilteredList.setPredicate(book -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (book.getTitle().toLowerCase().contains(lowerCaseFilter)) return true;
+
+                return false;
+            });
+        });
+
+        tableView.setItems(bookFilteredList);
     }
 
     private void addBook(Book book) {

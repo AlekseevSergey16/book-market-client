@@ -1,6 +1,7 @@
 package com.salekseev.booksmarketclient.view.book.main;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import com.salekseev.booksmarketclient.model.Author;
 import com.salekseev.booksmarketclient.model.Book;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -21,6 +22,7 @@ public abstract class BookViewDesigner extends StackPane {
     JFXButton addBookButton;
     JFXButton editBookButton;
     JFXButton deleteBookButton;
+    JFXTextField filterBookField;
     MFXTableView<Book> tableView;
 
     public BookViewDesigner() {
@@ -41,6 +43,10 @@ public abstract class BookViewDesigner extends StackPane {
         deleteBookButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.TRASH).color(Color.valueOf("#3c72bf")).size(18));
         deleteBookButton.setOnAction(this::deleteBookButtonOnAction);
         deleteBookButton.setDisable(true);
+
+        filterBookField = new JFXTextField();
+        filterBookField.setPromptText("Поиск");
+        filterBookField.setPrefWidth(200);
 
         tableView = new MFXTableView<>();
         tableView.setPrefSize(1024.0, 768.0);
@@ -101,7 +107,7 @@ public abstract class BookViewDesigner extends StackPane {
 
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(0, 5, 0, 5));
-        hBox.getChildren().addAll(addBookButton, editBookButton, deleteBookButton);
+        hBox.getChildren().addAll(addBookButton, editBookButton, deleteBookButton, filterBookField);
 
         VBox vBox = new VBox(5,  hBox, tableView);
         vBox.setPadding(new Insets(5, 5, 5, 5));
