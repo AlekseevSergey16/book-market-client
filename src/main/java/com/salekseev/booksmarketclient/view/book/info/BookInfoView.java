@@ -86,20 +86,10 @@ public class BookInfoView extends BookInfoViewDesigner {
         weightField.setText(String.valueOf(book.getWeight()));
         descriptionArea.setText(book.getDescription());
 
-        authorListView.getItems().addListener(new ListChangeListener<Author>() {
-            @Override
-            public void onChanged(Change<? extends Author> c) {
-                List<Long> authorIds = book.getAuthors().stream()
-                        .map(Author::getId)
-                        .collect(Collectors.toList());
+        ObservableList<Author> authorObservableList = FXCollections.observableArrayList(book.getAuthors());
+        authorListView.setItems(authorObservableList);
+        authorListView.getSelectionModel().selectItems(authorObservableList);
 
-                List<Author> authors = authorListView.getItems().stream()
-                        .filter(author -> authorIds.contains(author.getId()))
-                        .collect(Collectors.toList());
-
-                authors.forEach(author -> authorListView.getSelectionModel().selectItem(author));
-            }
-        });
         publisherComboBox.getItems().addListener(new ListChangeListener<Publisher>() {
             @Override
             public void onChanged(Change<? extends Publisher> c) {

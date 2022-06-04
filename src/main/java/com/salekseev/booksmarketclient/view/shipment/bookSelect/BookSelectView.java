@@ -29,6 +29,9 @@ public class BookSelectView extends BookSelectViewDesigner {
 
     private void bindFields() {
         this.tableView.setItems(viewModel.getBookObservableList());
+        this.okButton.disableProperty()
+                .bind(tableView.getSelectionModel().selectionProperty().isNull()
+                .or(amountField.textProperty().isEmpty()));
     }
 
     private ShipmentItem buildShipmentItem() {

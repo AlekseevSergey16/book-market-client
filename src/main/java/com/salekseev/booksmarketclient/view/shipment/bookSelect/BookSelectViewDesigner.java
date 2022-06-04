@@ -34,7 +34,7 @@ abstract class BookSelectViewDesigner extends StackPane {
         okButton.setOnAction(this::okButtonOnAction);
 
         tableView = new MFXTableView<>();
-        tableView.setPrefSize(1024.0, 768.0);
+        tableView.setPrefSize(1024.0, 384.0);
         tableView.setFooterVisible(false);
         tableView.setMaxWidth(1024.0);
 
@@ -93,7 +93,7 @@ abstract class BookSelectViewDesigner extends StackPane {
         HBox buttonsHBox = new HBox(5, okButton);
         buttonsHBox.setAlignment(Pos.CENTER_RIGHT);
 
-        VBox vBox = new VBox(5,  hBox, tableView, amountField, buttonsHBox);
+        VBox vBox = new VBox(10,  hBox, tableView, amountField, buttonsHBox);
         vBox.setPadding(new Insets(5, 5, 5, 5));
 
         getChildren().add(vBox);

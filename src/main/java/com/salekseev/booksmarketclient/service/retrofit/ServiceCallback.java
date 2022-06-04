@@ -1,5 +1,7 @@
 package com.salekseev.booksmarketclient.service.retrofit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.salekseev.booksmarketclient.model.ErrorInfo;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import retrofit2.Call;
@@ -21,6 +23,21 @@ public class ServiceCallback<T> implements Callback<T> {
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             result.complete(response.body());
+        } else if (response.code() == 400) {
+            ObjectMapper mapper = new ObjectMapper();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText("Ошибка!");
+                try {
+                    ErrorInfo errorInfo = mapper.readValue(response.errorBody().string(), ErrorInfo.class);
+                    alert.setContentText(errorInfo.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                alert.showAndWait();
+            });
         } else {
             Platform.runLater(() -> {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

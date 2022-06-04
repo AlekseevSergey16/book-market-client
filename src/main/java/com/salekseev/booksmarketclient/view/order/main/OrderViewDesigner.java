@@ -17,6 +17,7 @@ import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 abstract class OrderViewDesigner extends StackPane {
@@ -52,7 +53,12 @@ abstract class OrderViewDesigner extends StackPane {
         tableView.setFooterVisible(false);
 
         MFXTableColumn<Order> column1 = new MFXTableColumn<>("Дата заказа", false);
-        column1.setRowCellFactory(rowCell -> new MFXTableRowCell<>(Order::getOrderDate));
+        column1.setRowCellFactory(rowCell -> new MFXTableRowCell<>(order -> {
+            if (order.getOrderDate() != null) {
+                return order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            }
+            return null;
+        }));
         column1.setMinWidth(200);
 
         MFXTableColumn<Order> column2 = new MFXTableColumn<>("Позиции заказа", false);
