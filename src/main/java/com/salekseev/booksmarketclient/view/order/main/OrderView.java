@@ -14,6 +14,11 @@ public class OrderView extends OrderViewDesigner {
         bindFields();
     }
 
+    public OrderView(long userId) {
+        viewModel.loadOrders();
+        bindFields();
+    }
+
     @Override
     protected void addOrderButtonOnAction(ActionEvent event) {
         FxUtil.showView("Оформление заказа", new OrderInfoView(viewModel::addOrder), this.getScene().getWindow());

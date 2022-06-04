@@ -8,9 +8,13 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Query;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class BookMarketService {
@@ -164,6 +168,32 @@ public class BookMarketService {
         var result = new CompletableFuture<Long>();
         api.createOrder(order).enqueue(new ServiceCallback<>(result));
         return result;
+    }
+
+    public Optional<User> getUser(String username, String password) {
+        try {
+            Response<User> response = api.getUser(username, password).execute();
+            if (response.isSuccessful()) {
+                return Optional.of(response.body());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    public Long createUser(User user) {
+        try {
+            Response<Long> response = api.createUser(user).execute();
+            if (response.isSuccessful()) {
+                return response.body();
+            } else {
+                throw new RuntimeException(response.message());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 
 }

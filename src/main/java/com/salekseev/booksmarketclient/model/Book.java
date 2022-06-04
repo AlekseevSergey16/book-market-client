@@ -116,4 +116,9 @@ public class Book {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return title + " " + cost;
+    }
 }

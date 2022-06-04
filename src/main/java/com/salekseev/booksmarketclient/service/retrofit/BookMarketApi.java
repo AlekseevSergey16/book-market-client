@@ -77,4 +77,10 @@ public interface BookMarketApi {
     @GET("/book-market/api/orders")
     Call<List<Order>> getAllOrders();
 
+    @GET("/book-market/api/users")
+    Call<User> getUser(@Query("username") String username, @Query("password") String password);
+
+    @POST("/book-market/api/users")
+    Call<Long> createUser(@Body User user);
+
 }
