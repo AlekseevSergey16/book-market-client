@@ -176,6 +176,13 @@ public class BookMarketService {
         return result;
     }
 
+    public CompletableFuture<List<BookReport>> getBookReports() {
+        var result = new CompletableFuture<List<BookReport>>();
+        api.getBookReports().enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
+
     public void getBooksSoldForMonth() {
         try {
             api.getBooksSoldForMonth().execute();

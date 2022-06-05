@@ -10,10 +10,20 @@ public class RegistrationView extends RegistrationViewDesigner {
 
     private final BookMarketService service = BookMarketService.getInstance();
 
+    public RegistrationView() {
+        bindFields();
+    }
+
     @Override
     protected void regButtonOnAction(ActionEvent event) {
         service.createUser(buildUser());
         ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
+    }
+
+    private void bindFields() {
+        this.regButton.disableProperty()
+                .bind(loginField.textProperty().isEmpty()
+                .or(passwordField.textProperty().isEmpty()));
     }
 
     private User buildUser() {

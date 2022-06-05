@@ -24,7 +24,7 @@ public abstract class RegistrationViewDesigner extends VBox {
         passwordField = new JFXPasswordField();
         passwordField.setPromptText("Пароль");
 
-        regButton = new JFXButton("Войти");
+        regButton = new JFXButton("Зарегистрироваться");
         regButton.setOnAction(this::regButtonOnAction);
 
         setSpacing(10);

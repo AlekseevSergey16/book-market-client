@@ -88,4 +88,8 @@ public interface BookMarketApi {
 
     @GET("/book-market/api/reports")
     Call<byte[]> getBooksSoldForMonth();
+
+    @GET("/book-market/api/books/report")
+    Call<List<BookReport>> getBookReports();
+
 }

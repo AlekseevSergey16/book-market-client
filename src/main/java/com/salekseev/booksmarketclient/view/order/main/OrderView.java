@@ -2,8 +2,11 @@ package com.salekseev.booksmarketclient.view.order.main;
 
 import com.salekseev.booksmarketclient.model.Order;
 import com.salekseev.booksmarketclient.util.FxUtil;
+import com.salekseev.booksmarketclient.view.order.chart.BookSoldChart;
 import com.salekseev.booksmarketclient.view.order.info.OrderInfoView;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class OrderView extends OrderViewDesigner {
 
@@ -16,6 +19,8 @@ public class OrderView extends OrderViewDesigner {
 
     public OrderView(long userId) {
         viewModel.loadOrders(userId);
+        this.createReportItem.setVisible(false);
+        this.showChartItem.setVisible(false);
         bindFields();
     }
 
@@ -33,6 +38,15 @@ public class OrderView extends OrderViewDesigner {
     @Override
     protected void createReportItemOnAction(ActionEvent event) {
         viewModel.loadReport();
+    }
+
+    @Override
+    protected void showChartItemOnAction(ActionEvent event) {
+        Scene scene = new Scene(new BookSoldChart(), 600, 400);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Диаграмма \"Список продаж\"");
+        stage.show();
     }
 
     private void bindFields() {

@@ -9,6 +9,7 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
@@ -26,6 +27,8 @@ abstract class OrderViewDesigner extends StackPane {
     JFXButton detailButton;
     MFXTableView<Order> tableView;
     ContextMenu contextMenu;
+    MenuItem createReportItem;
+    MenuItem showChartItem;
 
     public OrderViewDesigner() {
         createView();
@@ -41,10 +44,13 @@ abstract class OrderViewDesigner extends StackPane {
         MenuItem showDetailedItem = new MenuItem("Подробнее");
         showDetailedItem.setOnAction(this::showDetailedItemOnAction);
 
-        MenuItem createReportItem = new MenuItem("Создать отчет");
+        createReportItem = new MenuItem("Создать отчет");
         createReportItem.setOnAction(this::createReportItemOnAction);
 
-        contextMenu = new ContextMenu(showDetailedItem, createReportItem);
+        showChartItem = new MenuItem("Показать продажи");
+        showChartItem.setOnAction(this::showChartItemOnAction);
+
+        contextMenu = new ContextMenu(showDetailedItem, createReportItem, showChartItem);
 
         detailButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.ELLIPSIS_H).color(Color.valueOf("#3c72bf")).size(18));
         detailButton.setOnMouseClicked(event -> contextMenu.show(detailButton, event.getScreenX() - 150, event.getScreenY()));
@@ -91,5 +97,6 @@ abstract class OrderViewDesigner extends StackPane {
     protected abstract void addOrderButtonOnAction(ActionEvent event);
     protected abstract void showDetailedItemOnAction(ActionEvent event);
     protected abstract void createReportItemOnAction(ActionEvent event);
+    protected abstract void showChartItemOnAction(ActionEvent event);
 
 }
