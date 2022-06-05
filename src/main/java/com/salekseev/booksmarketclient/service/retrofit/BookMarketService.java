@@ -164,10 +164,24 @@ public class BookMarketService {
         return result;
     }
 
+    public CompletableFuture<List<Order>> getOrdersByUserId(long userId) {
+        var result = new CompletableFuture<List<Order>>();
+        api.getOrdersByUser(userId).enqueue(new ServiceCallback<>(result));
+        return result;
+    }
+
     public CompletableFuture<Long> createOrder(Order order) {
         var result = new CompletableFuture<Long>();
         api.createOrder(order).enqueue(new ServiceCallback<>(result));
         return result;
+    }
+
+    public void getBooksSoldForMonth() {
+        try {
+            api.getBooksSoldForMonth().execute();
+        } catch (IOException e) {
+            //todo pdf
+        }
     }
 
     public Optional<User> getUser(String username, String password) {

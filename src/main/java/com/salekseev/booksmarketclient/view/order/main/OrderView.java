@@ -15,7 +15,7 @@ public class OrderView extends OrderViewDesigner {
     }
 
     public OrderView(long userId) {
-        viewModel.loadOrders();
+        viewModel.loadOrders(userId);
         bindFields();
     }
 
@@ -28,6 +28,11 @@ public class OrderView extends OrderViewDesigner {
     protected void showDetailedItemOnAction(ActionEvent event) {
         Order order = tableView.getSelectionModel().getSelectedValues().get(0);
         FxUtil.showView("Просмотр заказа", new OrderInfoView(order), this.getScene().getWindow());
+    }
+
+    @Override
+    protected void createReportItemOnAction(ActionEvent event) {
+        viewModel.loadReport();
     }
 
     private void bindFields() {

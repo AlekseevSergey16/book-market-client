@@ -7,6 +7,11 @@ import javafx.event.ActionEvent;
 public class MainUserView extends MainUserViewDesigner {
 
     private final State state = new State();
+    private final long userId;
+
+    public MainUserView(long userId) {
+        this.userId = userId;
+    }
 
     @Override
     public void bookButtonOnAction(ActionEvent event) {
@@ -16,7 +21,7 @@ public class MainUserView extends MainUserViewDesigner {
 
     @Override
     public void orderButtonOnAction(ActionEvent event) {
-        OrderView orderView = new OrderView();
+        OrderView orderView = new OrderView(userId);
         setCenter(orderView);
     }
 

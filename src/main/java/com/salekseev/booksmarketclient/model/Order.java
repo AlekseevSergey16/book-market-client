@@ -7,6 +7,7 @@ public class Order {
 
     private Long id;
     private LocalDateTime orderDate;
+    private Long userId;
     private List<OrderItem> items;
     private Double totalCost;
 
@@ -40,5 +41,13 @@ public class Order {
 
     public void setTotalCost(Double totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

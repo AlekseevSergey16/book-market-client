@@ -42,7 +42,7 @@ abstract class MainUserViewDesigner extends BorderPane {
         bookButton.setOnAction(this::bookButtonOnAction);
         bookButton.setStyle("-fx-border-radius: 0; -fx-background-radius: 0;");
 
-        orderButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.LIST_UL).color(Color.valueOf("white")));
+        orderButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.SHOPPING_CART).color(Color.valueOf("white")));
         orderButton.setPrefSize(50.0, 50.0);
         orderButton.setOnAction(this::orderButtonOnAction);
         orderButton.setStyle("-fx-border-radius: 0; -fx-background-radius: 0;");

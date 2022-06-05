@@ -25,6 +25,7 @@ abstract class OrderViewDesigner extends StackPane {
     JFXButton addOrderButton;
     JFXButton detailButton;
     MFXTableView<Order> tableView;
+    ContextMenu contextMenu;
 
     public OrderViewDesigner() {
         createView();
@@ -40,7 +41,10 @@ abstract class OrderViewDesigner extends StackPane {
         MenuItem showDetailedItem = new MenuItem("Подробнее");
         showDetailedItem.setOnAction(this::showDetailedItemOnAction);
 
-        ContextMenu contextMenu = new ContextMenu(showDetailedItem);
+        MenuItem createReportItem = new MenuItem("Создать отчет");
+        createReportItem.setOnAction(this::createReportItemOnAction);
+
+        contextMenu = new ContextMenu(showDetailedItem, createReportItem);
 
         detailButton = new JFXButton("", fontAwesome.create(FontAwesome.Glyph.ELLIPSIS_H).color(Color.valueOf("#3c72bf")).size(18));
         detailButton.setOnMouseClicked(event -> contextMenu.show(detailButton, event.getScreenX() - 150, event.getScreenY()));
@@ -86,5 +90,6 @@ abstract class OrderViewDesigner extends StackPane {
 
     protected abstract void addOrderButtonOnAction(ActionEvent event);
     protected abstract void showDetailedItemOnAction(ActionEvent event);
+    protected abstract void createReportItemOnAction(ActionEvent event);
 
 }

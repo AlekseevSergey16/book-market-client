@@ -47,8 +47,6 @@ dependencies {
 // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.12.10'
 
-
-
 //    // https://mvnrepository.com/artifact/de.jensd/fontawesomefx
 //    implementation 'de.jensd:fontawesomefx-fontawesome:4.7.0-9.1.2'
 

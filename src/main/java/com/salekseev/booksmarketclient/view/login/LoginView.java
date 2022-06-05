@@ -3,7 +3,6 @@ package com.salekseev.booksmarketclient.view.login;
 import com.salekseev.booksmarketclient.model.User;
 import com.salekseev.booksmarketclient.service.retrofit.BookMarketService;
 import com.salekseev.booksmarketclient.util.FxUtil;
-import com.salekseev.booksmarketclient.view.book.info.BookInfoView;
 import com.salekseev.booksmarketclient.view.mainView.MainView;
 import com.salekseev.booksmarketclient.view.registration.RegistrationView;
 import com.salekseev.booksmarketclient.view.user.MainUserView;
@@ -14,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.Optional;
 
 public class LoginView extends LoginViewDesigner {
@@ -35,18 +33,18 @@ public class LoginView extends LoginViewDesigner {
 
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
-                stage.setTitle("Книжный магазин");
+                stage.setTitle("Книжный магазин (" + user1.getUsername() + ")");
                 stage.getIcons().add(new Image(getClass().getResource("/icons/main-icon.png").toExternalForm()));
                 stage.setScene(scene);
                 stage.show();
 
                 ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
             } else if (user1.getRole().equals("user")) {
-                var root = new MainUserView();
+                var root = new MainUserView(user1.getId());
 
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
-                stage.setTitle("Книжный магазин");
+                stage.setTitle("Книжный магазин (" + user1.getUsername() + ")");
                 stage.getIcons().add(new Image(getClass().getResource("/icons/main-icon.png").toExternalForm()));
                 stage.setScene(scene);
                 stage.show();
