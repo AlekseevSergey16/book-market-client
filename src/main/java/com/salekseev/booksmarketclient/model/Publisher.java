@@ -64,4 +64,5 @@ public class Publisher {
     public String toString() {
         return name;
     }
+
 }

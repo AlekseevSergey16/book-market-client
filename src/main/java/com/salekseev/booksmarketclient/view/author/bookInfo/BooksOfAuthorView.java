@@ -7,11 +7,9 @@ import javafx.stage.Stage;
 
 public class BooksOfAuthorView extends BooksOfAuthorViewDesigner {
 
-    private final Author author;
     private final BooksOfAuthorVM viewModel = new BooksOfAuthorVM();
 
     public BooksOfAuthorView(Author author) {
-        this.author = author;
         this.viewModel.loadBooks(author.getId());
         this.bindFields();
     }

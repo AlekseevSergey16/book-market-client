@@ -30,8 +30,13 @@ public class PublisherVM {
     public void updatePublisher(Publisher publisher) {
         service.updatePublisher(publisher)
                 .thenAccept(response -> Platform.runLater(() -> {
-                    publisherObservableList.removeIf(p -> p.getId().equals(publisher.getId()));
-                    publisherObservableList.add(publisher);
+                    for (int i = 0; i < publisherObservableList.size(); i++) {
+                        if (publisherObservableList.get(i).getId().equals(publisher.getId())) {
+                            publisherObservableList.add(i, publisher);
+                            publisherObservableList.remove(i + 1);
+                            break;
+                        }
+                    }
                 }));
     }
 
