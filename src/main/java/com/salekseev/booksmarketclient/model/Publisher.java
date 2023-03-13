@@ -1,5 +1,7 @@
 package com.salekseev.booksmarketclient.model;
 
+import java.util.Objects;
+
 public class Publisher {
 
     private Long id;
@@ -65,4 +67,18 @@ public class Publisher {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Publisher publisher = (Publisher) o;
+        return Objects.equals(id, publisher.id) && Objects.equals(name, publisher.name)
+                && Objects.equals(phone, publisher.phone) && Objects.equals(email, publisher.email)
+                && Objects.equals(information, publisher.information);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, phone, email, information);
+    }
 }

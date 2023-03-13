@@ -1,5 +1,6 @@
 package com.salekseev.booksmarketclient.service.retrofit;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.salekseev.booksmarketclient.model.*;
@@ -29,6 +30,7 @@ public class BookMarketService {
     private BookMarketService() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .connectTimeout(Duration.ofSeconds(10000))

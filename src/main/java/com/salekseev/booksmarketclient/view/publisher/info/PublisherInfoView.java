@@ -2,14 +2,10 @@ package com.salekseev.booksmarketclient.view.publisher.info;
 
 import com.jfoenix.validation.RequiredFieldValidator;
 import com.salekseev.booksmarketclient.model.Publisher;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class PublisherInfoView extends PublisherInfoViewDesigner {

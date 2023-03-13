@@ -1,95 +1,57 @@
 package com.salekseev.booksmarketclient.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.salekseev.booksmarketclient.model.Author;
+import com.salekseev.booksmarketclient.model.*;
+import com.salekseev.booksmarketclient.service.retrofit.ServiceCallback;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
-public class BookMarketService {
+public interface BookMarketService {
 
-    private static final BookMarketService INSTANCE = new BookMarketService();
+    public CompletableFuture<List<Author>> getAllAuthors();
 
-    private final HttpClient httpClient;
-    private final String baseUri = "http://localhost:8080/book-market/api";
+    public CompletableFuture<Long> createAuthor(Author author);
 
-    private BookMarketService() {
-        httpClient = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).build();
-    }
+    public CompletableFuture<Void> updateAuthor(Author author);
 
-    public static BookMarketService getInstance() {
-        return INSTANCE;
-    }
+    public CompletableFuture<Void> deleteAuthor(long id);
 
-    public CompletableFuture<List<Author>> getAllAuthors() {
-        UncheckedObjectMapper<List<Author>> mapper = new UncheckedObjectMapper<>();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .header("Accept", "application/json")
-                .header("Content-type", "application/json")
-                .uri(URI.create(baseUri + "/authors"))
-                .build();
+    public CompletableFuture<List<Publisher>> getAllPublishers();
 
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(mapper::readValue);
-    }
+    public CompletableFuture<Long> createPublisher(Publisher publisher);
 
-    public CompletableFuture<Long> createAuthor(Author author) {
-        UncheckedObjectMapper<Author> mapper = new UncheckedObjectMapper<>();
-        String body = mapper.writeValue(author);
-        HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .header("Accept", "application/json")
-                .header("Content-type", "application/json")
-                .uri(URI.create(baseUri + "/authors"))
-                .build();
+    public CompletableFuture<Void> updatePublisher(Publisher publisher);
 
+    public CompletableFuture<Void> deletePublisher(long id);
 
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(Long::parseLong);
-    }
+    public CompletableFuture<List<Book>> getAllBooks();
 
-    public CompletableFuture<Void> updateAuthor(Author author) {
-        UncheckedObjectMapper<Author> mapper = new UncheckedObjectMapper<>();
-        HttpRequest request = HttpRequest.newBuilder()
-                .PUT(HttpRequest.BodyPublishers.ofString(mapper.writeValue(author)))
-                .header("Accept", "application/json")
-                .header("Content-type", "application/json")
-                .uri(URI.create(baseUri + "/authors"))
-                .build();
+    public CompletableFuture<List<Book>> getAvailabilityBooks();
 
-        return httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(null); // body ->
-    }
+    public CompletableFuture<List<Book>> getBooksByAuthor(long authorId);
 
-    static class UncheckedObjectMapper<T> extends com.fasterxml.jackson.databind.ObjectMapper {
+    public CompletableFuture<Long> createBook(Book book);
 
-        T readValue(String content) {
-            try {
-                return this.readValue(content, new TypeReference<>() {
-                });
-            } catch (IOException ioe) {
-                throw new CompletionException(ioe);
-            }
-        }
+    public CompletableFuture<Void> updateBook(Book book);
 
-        String writeValue(T value) {
-            try {
-                return this.writeValueAsString(value);
-            } catch (IOException ioe) {
-                throw new CompletionException(ioe);
-            }
-        }
+    public CompletableFuture<Void> deleteBook(long id);
 
-    }
+    public CompletableFuture<List<Genre>> getAllGenres();
+
+    public CompletableFuture<List<Supplier>> getAllSuppliers();
+
+    public CompletableFuture<Long> createSupplier(Supplier supplier);
+
+    public CompletableFuture<List<Shipment>> getAllShipments();
+
+    public CompletableFuture<Long> createShipment(Shipment shipment);
+
+    public CompletableFuture<List<Order>> getAllOrders();
+
+    public CompletableFuture<List<Order>> getOrdersByUserId(long userId);
+
+    public CompletableFuture<Long> createOrder(Order order);
+
+    public CompletableFuture<List<BookReport>> getBookReports();
 
 }
